@@ -30,8 +30,6 @@ app.use(express.json());
  */
 app.get('/health', (req, res) => res.json({ ok: true }));
 
-app.get('/', (_req, res) => res.redirect('/api-docs'));
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
 app.get('/openapi.json', (_req, res) => res.json(openapiSpec));
 
