@@ -8,7 +8,7 @@ const definition = {
     version: '0.1.0',
     description: 'Task management API — Express + MongoDB.',
   },
-  servers: [{ url: 'http://localhost:3000', description: 'Local dev' }],
+  servers: [{ url: '/', description: 'Current host' }],
   tags: [
     { name: 'Health' },
     { name: 'Auth' },
