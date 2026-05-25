@@ -58,14 +58,14 @@ router.get('/', projects.list);
  *             schema: { $ref: '#/components/schemas/Project' }
  *       '401': { $ref: '#/components/responses/Unauthorized' }
  *       '404': { $ref: '#/components/responses/NotFound' }
- *   patch:
+ *   put:
  *     tags: [Projects]
  *     summary: Update a project
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
- *           schema: { $ref: '#/components/schemas/ProjectPatch' }
+ *           schema: { $ref: '#/components/schemas/ProjectInput' }
  *     responses:
  *       '200':
  *         description: OK
@@ -84,7 +84,7 @@ router.get('/', projects.list);
  *       '404': { $ref: '#/components/responses/NotFound' }
  */
 router.get('/:id', projects.readOne);
-router.patch('/:id', projects.update);
+router.put('/:id', projects.update);
 router.delete('/:id', projects.remove);
 
 /**

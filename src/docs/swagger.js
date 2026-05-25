@@ -93,14 +93,6 @@ const definition = {
           color: { type: 'string', pattern: '^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$' },
         },
       },
-      ProjectPatch: {
-        type: 'object',
-        properties: {
-          name: { type: 'string', maxLength: 120 },
-          description: { type: 'string', maxLength: 2000 },
-          color: { type: 'string', pattern: '^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$' },
-        },
-      },
       Project: {
         type: 'object',
         properties: {
@@ -123,16 +115,6 @@ const definition = {
           status: { $ref: '#/components/schemas/TaskStatus' },
           priority: { $ref: '#/components/schemas/TaskPriority' },
           dueDate: { type: 'string', format: 'date-time' },
-        },
-      },
-      TaskPatch: {
-        type: 'object',
-        properties: {
-          title: { type: 'string', maxLength: 200 },
-          description: { type: 'string', maxLength: 5000 },
-          status: { $ref: '#/components/schemas/TaskStatus' },
-          priority: { $ref: '#/components/schemas/TaskPriority' },
-          dueDate: { type: 'string', format: 'date-time', nullable: true },
         },
       },
       Task: {

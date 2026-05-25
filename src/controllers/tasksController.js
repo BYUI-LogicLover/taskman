@@ -75,13 +75,20 @@ async function update(req, res, next) {
     const task = await Task.findOne({ _id: req.params.id, userId: req.user._id });
     if (!task) return res.status(404).json({ error: 'task not found' });
 
-    const fields = pickTaskFields(req.body || {});
+    const { title, description, status, priority, dueDate } = req.body || {};
     const prevStatus = task.status;
-    Object.assign(task, fields);
+
+    task.title = title;
+    task.description = description;
+    task.status = status !== undefined ? status : 'todo';
+    task.priority = priority !== undefined ? priority : 'med';
+    task.dueDate = dueDate;
 
     // Computed: completedAt tracks transitions into/out of "done".
-    if (fields.status && fields.status !== prevStatus) {
-      task.completedAt = fields.status === 'done' ? new Date() : undefined;
+    if (task.status === 'done') {
+      if (prevStatus !== 'done') task.completedAt = new Date();
+    } else {
+      task.completedAt = undefined;
     }
 
     await task.save();

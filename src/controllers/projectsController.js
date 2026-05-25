@@ -37,18 +37,15 @@ async function readOne(req, res, next) {
 
 async function update(req, res, next) {
   try {
-    const { name, description, color } = req.body || {};
-    const patch = {};
-    if (name !== undefined) patch.name = name;
-    if (description !== undefined) patch.description = description;
-    if (color !== undefined) patch.color = color;
-
-    const project = await Project.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
-      patch,
-      { new: true, runValidators: true }
-    );
+    const project = await Project.findOne({ _id: req.params.id, userId: req.user._id });
     if (!project) return res.status(404).json({ error: 'project not found' });
+
+    const { name, description, color } = req.body || {};
+    project.name = name;
+    project.description = description;
+    project.color = color;
+
+    await project.save();
     res.json(project);
   } catch (err) {
     next(err);

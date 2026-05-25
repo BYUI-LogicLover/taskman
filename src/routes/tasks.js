@@ -22,14 +22,14 @@ router.use(authRequired);
  *             schema: { $ref: '#/components/schemas/Task' }
  *       '401': { $ref: '#/components/responses/Unauthorized' }
  *       '404': { $ref: '#/components/responses/NotFound' }
- *   patch:
+ *   put:
  *     tags: [Tasks]
  *     summary: Update a task
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
- *           schema: { $ref: '#/components/schemas/TaskPatch' }
+ *           schema: { $ref: '#/components/schemas/TaskInput' }
  *     responses:
  *       '200':
  *         description: OK
@@ -48,7 +48,7 @@ router.use(authRequired);
  *       '404': { $ref: '#/components/responses/NotFound' }
  */
 router.get('/tasks/:id', tasks.readOne);
-router.patch('/tasks/:id', tasks.update);
+router.put('/tasks/:id', tasks.update);
 router.delete('/tasks/:id', tasks.remove);
 
 module.exports = router;
