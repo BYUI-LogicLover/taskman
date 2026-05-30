@@ -13,7 +13,7 @@ module.exports = function errorHandler(err, req, res, next) {
   }
 
   if (err.name === 'CastError') {
-    return res.status(400).json({ error: 'invalid id' });
+    return res.status(400).json({ error: 'Cast error invalid id' });
   }
 
   if (err.code === 11000) {
