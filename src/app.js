@@ -30,8 +30,17 @@ app.use(express.json());
  */
 app.get('/health', (req, res) => res.json({ ok: true }));
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
-app.get('/openapi.json', (_req, res) => res.json(openapiSpec));
+const specForRequest = (req) => ({
+  ...openapiSpec,
+  servers: [{ url: `${req.protocol}://${req.get('host')}`, description: 'Current host' }],
+});
+
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  (req, res, next) => swaggerUi.setup(specForRequest(req))(req, res, next),
+);
+app.get('/openapi.json', (req, res) => res.json(specForRequest(req)));
 
 app.use('/auth', authRoutes);
 app.use('/projects', projectRoutes);
